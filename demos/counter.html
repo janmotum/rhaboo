@@ -1,4 +1,4 @@
-<script src = '../rhaboo.min.js'></script>
+<script src = '../rhaboo.max.js'></script>
 <script>
 
   var store = Rhaboo.persistent('Counter demo');
@@ -7,6 +7,12 @@
   var laststamp = store.stamp ? store.stamp.toString() : "never";
   store.write('stamp', new Date());
 
+  function reloadData(){
+    var newStore = Rhaboo.persistent('Counter demo');
+    document.getElementById("count").innerHTML = newStore.count;
+    document.getElementById("stamp").innerHTML = newStore.stamp;
+    console.log("reloadData", newStore );
+  }
 </script>
 <body onLoad='
     document.getElementById("count").innerHTML = store.count;
@@ -16,9 +22,19 @@
   <p>You loaded this page <span id='count'></span> times. 
   <p>Last time was <span id='stamp'></span>. 
   <p>Now hit reload.</p>
+  
   <p onClick='
     store.erase("count");
     this.innerHTML="Now reload."'>
   Forget</p>
+  
+  <p onClick='
+    reloadData();
+    this.innerHTML="Reloaded at " + new Date();'>
+  Reload data</p>
+  
+   <p onClick='
+    window.location.reload();'>
+  Reload this frame</p>
 </body>
 
