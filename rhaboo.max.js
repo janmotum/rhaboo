@@ -1,4 +1,11 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// NOTE: JanM: this is a modified source file, based on https://github.com/adrianmay/rhaboo/tree/9147954f9a
+// I've added a reset() function to clean local cache, so data is shared between tabs 
+// see https://github.com/adrianmay/rhaboo/issues/20
+
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;
+  if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}
+  var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}
+  var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 //This is for efficiently serialising objects you know the contents of.
 
 //It's not a JSON replacement. It's for when you want to control exactly 
@@ -88,7 +95,7 @@ var tuple = sepByEsc(';',':');
 module.exports = { typeOf:typeOf, id:id, konst:konst, eq:eq, map:map, runSnd:runSnd, 
   string_pp:string_pp, number_pp:number_pp, boolean_pp:boolean_pp, null_pp:null_pp, 
   undefined_pp:undefined_pp, thru:thru, chop:chop, fixedWidth:fixedWidth, sepBy:sepBy, 
-  escape:escape, sepByEsc:sepByEsc, tuple:tuple, pipe:pipe  }
+  escape:escape, sepByEsc:sepByEsc, tuple:tuple, pipe:pipe ,  }
 
 
 },{}],2:[function(require,module,exports){
@@ -172,6 +179,7 @@ Array.prototype.fill = Array_rhaboo_defensively("fill");
 module.exports = {
   persistent : R.persistent,
   nuke : R.nuke,
+  reset: R.reset,
 };
 
 
@@ -219,6 +227,10 @@ if (Function.prototype.name === undefined && Object.defineProperty !== undefined
 var ls_prefix = "_rhaboo_";
 
 var built = {};
+
+function reset(){
+    built = {};
+}
 
 //The serialiser...
 
@@ -464,6 +476,7 @@ module.exports = {
   updateSlot : updateSlot,
   execute : execute,
   nuke : nuke,
+  reset: reset,
 };
 
 

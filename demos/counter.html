@@ -13,6 +13,11 @@
     document.getElementById("stamp").innerHTML = newStore.stamp;
     console.log("reloadData", newStore );
   }
+
+  function resetData(){
+    Rhaboo.reset();
+    reloadData();
+  }
 </script>
 <body onLoad='
     document.getElementById("count").innerHTML = store.count;
@@ -32,6 +37,11 @@
     reloadData();
     this.innerHTML="Reloaded at " + new Date();'>
   Reload data</p>
+
+  <p onClick='
+    resetData();
+    this.innerHTML="Reset and reloaded at " + new Date();'>
+  Reset and reload data</p>
   
    <p onClick='
     window.location.reload();'>
